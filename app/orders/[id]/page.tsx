@@ -56,7 +56,7 @@ export default function OrderDetailPage({
             <CheckCircle className="h-16 w-16 mx-auto text-green-500 mb-4" />
             <h1 className="text-3xl font-bold mb-2">Order Confirmed!</h1>
             <p className="text-muted-foreground mb-4">
-              Thank you for your order. We'll send you a confirmation email
+              Thank you for your order. We&apos;ll send you a confirmation email
               shortly.
             </p>
             <Badge variant="default" className="text-base px-4 py-1">

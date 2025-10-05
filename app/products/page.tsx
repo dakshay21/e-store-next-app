@@ -7,12 +7,15 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { ProductSearch } from "@/components/products/ProductSearch";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { ProductListItem, PaginatedResponse } from "@/types";
 
 export default function ProductsPage() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<
+    ProductListItem[] | PaginatedResponse<ProductListItem>
+  >({
     queryKey: searchQuery ? ["products", "search", searchQuery] : ["products", page],
     queryFn: () =>
       searchQuery
@@ -21,10 +24,10 @@ export default function ProductsPage() {
   });
 
   const products = searchQuery
-    ? (data as any[])
-    : (data as any)?.results || [];
-  const hasNext = !searchQuery && (data as any)?.next;
-  const hasPrev = !searchQuery && (data as any)?.previous;
+    ? (data as ProductListItem[])
+    : (data as PaginatedResponse<ProductListItem>)?.results || [];
+  const hasNext = !searchQuery && (data as PaginatedResponse<ProductListItem>)?.next;
+  const hasPrev = !searchQuery && (data as PaginatedResponse<ProductListItem>)?.previous;
 
   return (
     <div className="container mx-auto py-8 space-y-8">
